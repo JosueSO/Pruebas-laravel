@@ -36,6 +36,10 @@ class CategoriasController extends Controller
     public function store(Request $request)
     {
         //
+        $nombre = "Categoría 1";
+        $color = "BLACK";
+
+        DB::insert('INSERT INTO categorias(nombre, color) VALUES(?, ?)', [$nombre, $color]);
     }
 
     /**
