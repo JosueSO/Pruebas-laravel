@@ -35,6 +35,8 @@ Route::get('/prueba', 'PruebaController@index');
 
 Route::resource('categorias', 'CategoriasController');
 
+/*
+
 //Insertar datos
 Route::get('/insert', function(){
     $nombre = "Categoría 2";
@@ -79,3 +81,5 @@ Route::get('/delete/{id}', function($id){
 
     return $respuesta;
 });
+
+*/

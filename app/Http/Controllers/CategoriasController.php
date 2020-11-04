@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class CategoriasController extends Controller
 {
@@ -14,7 +15,9 @@ class CategoriasController extends Controller
     public function index()
     {
         //
-        return "Controlador de categorías";
+        $categorias = DB::select('SELECT * FROM categorias');
+
+        return view('categorias.index', compact('categorias'));
     }
 
     /**
@@ -25,6 +28,8 @@ class CategoriasController extends Controller
     public function create()
     {
         //
+        $error = "";
+        return view('categorias.create', compact('error'));
     }
 
     /**
@@ -36,10 +41,18 @@ class CategoriasController extends Controller
     public function store(Request $request)
     {
         //
-        $nombre = "Categoría 1";
-        $color = "BLACK";
+        $nombre = $request->nombre;
+        if($nombre == "") {
+            $error = "El nombre de la categoría no puede estar vacío";
+
+            return view('categorias.create', compact('error'));
+        }
+
+        $color = $request->color;
 
         DB::insert('INSERT INTO categorias(nombre, color) VALUES(?, ?)', [$nombre, $color]);
+
+        return redirect()->route('categorias.index');
     }
 
     /**
