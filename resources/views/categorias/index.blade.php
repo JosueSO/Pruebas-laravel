@@ -12,7 +12,16 @@
 
     <ul class="list-group">
     @foreach($categorias as $item)
-        <li class="list-group-item" style="color: {{$item->color}};">{{$item->nombre}}</li>
+        <li class="list-group-item">
+            <a href="/categorias/{{$item->id}}/edit" style="color: {{$item->color}};">
+                {{$item->nombre}}
+            </a>
+            <form action="/categorias/{{$item->id}}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-outline-danger" type="submit">Eliminar</button>
+            </form>
+        </li>
     @endforeach
     </ul>
 
