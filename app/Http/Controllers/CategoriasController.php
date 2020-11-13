@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Categoria;
 
 class CategoriasController extends Controller
 {
@@ -15,7 +16,10 @@ class CategoriasController extends Controller
     public function index()
     {
         //
-        $categorias = DB::select('SELECT * FROM categorias');
+        //$categorias = DB::select('SELECT * FROM categorias');
+        
+        //$categorias = Categoria::all();
+        $categorias = Categoria::onlyTrashed()->get();
 
         return view('categorias.index', compact('categorias'));
     }
@@ -41,16 +45,19 @@ class CategoriasController extends Controller
     public function store(Request $request)
     {
         //
-        $nombre = $request->nombre;
-        if($nombre == "") {
+        $item = new Categoria;
+
+        $item->nombre = $request->nombre;
+        if($item->nombre == "") {
             $error = "El nombre de la categoría no puede estar vacío";
 
             return view('categorias.create', compact('error'));
         }
 
-        $color = $request->color;
+        $item->color = $request->color;
 
-        DB::insert('INSERT INTO categorias(nombre, color) VALUES(?, ?)', [$nombre, $color]);
+        $item->save();
+        //DB::insert('INSERT INTO categorias(nombre, color) VALUES(?, ?)', [$nombre, $color]);
 
         return redirect()->route('categorias.index');
     }
@@ -69,6 +76,16 @@ class CategoriasController extends Controller
         // $items = ['Item 1', 'Item 2', 'Item 3'];
 
         // return view("categorias", compact('id', 'title', 'items'));
+
+        // $categorias = DB::select('SELECT * FROM categorias WHERE id = ?', [$id]);
+
+        // $item = $categorias[0];
+
+        //Categoria::withTrashed()->where('id', $id)->forceDelete();
+
+        $item = Categoria::find($id);
+
+        return $item;
     }
 
     /**
@@ -80,9 +97,10 @@ class CategoriasController extends Controller
     public function edit($id)
     {
         //
-        $categorias = DB::select('SELECT * FROM categorias WHERE id = ?', [$id]);
+        // $categorias = DB::select('SELECT * FROM categorias WHERE id = ?', [$id]);
 
-        $item = $categorias[0];
+        // $item = $categorias[0];
+        $item = Categoria::find($id);
 
         $error = "";
         return view('categorias.edit', compact('error', 'item'));
@@ -98,21 +116,23 @@ class CategoriasController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $categorias = DB::select('SELECT * FROM categorias WHERE id = ?', [$id]);
+        // $categorias = DB::select('SELECT * FROM categorias WHERE id = ?', [$id]);
 
-        $item = $categorias[0];
+        // $item = $categorias[0];
+        $item = Categoria::find($id);
 
-        $nombre = $request->nombre;
-        if($nombre == "") {
+        $item->nombre = $request->nombre;
+        if($item->nombre == "") {
             $error = "El nombre de la categoría no puede estar vacío";
 
             return view('categorias.edit', compact('error', 'item'));
         }
 
-        $color = $request->color;
+        $item->color = $request->color;
 
-        $respuesta = DB::update('UPDATE categorias SET nombre = ?, color = ? WHERE id = ?', 
-            [$nombre, $color, $id]);
+        $respuesta = $item->save();
+        // $respuesta = DB::update('UPDATE categorias SET nombre = ?, color = ? WHERE id = ?', 
+        //     [$nombre, $color, $id]);
 
         if($respuesta == 0) {
             $error = "Error al actualizar el registro, inténtelo de nuevo";
@@ -132,8 +152,29 @@ class CategoriasController extends Controller
     public function destroy($id)
     {
         //
-        DB::delete('DELETE FROM categorias WHERE id = ?', [$id]);
+        //DB::delete('DELETE FROM categorias WHERE id = ?', [$id]);
+
+        Categoria::destroy($id);
 
         return redirect()->route('categorias.index');
+    }
+
+    public function byName($nombre) 
+    {
+        $categorias = Categoria::where('nombre', '!=', $nombre)->orderBy('color', 'desc')->get();
+
+        // $color = "#43016f";
+
+        // $categorias = Categoria::where('nombre', '!=', $nombre)->where('color', $color)->get();
+
+        return $categorias;
+    }
+
+    public function incluirEliminados()
+    {
+        //$categorias = Categoria::withTrashed()->get();
+
+        var_dump($categorias);
+        //return $categorias;
     }
 }

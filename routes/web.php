@@ -35,6 +35,10 @@ Route::get('/prueba', 'PruebaController@index');
 
 Route::resource('categorias', 'CategoriasController');
 
+Route::get('/categorias/byName/{nombre}', 'CategoriasController@byName');
+
+Route::get('/categorias/incluirEliminados', 'CategoriasController@incluirEliminados');
+
 /*
 
 //Insertar datos
