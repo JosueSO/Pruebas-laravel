@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\User;
+use App\Categoria;
+use App\Telefono;
+use App\Item;
+use App\Comentario;
+use App\Genero;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -87,3 +94,48 @@ Route::get('/delete/{id}', function($id){
 });
 
 */
+
+/* Uno a uno */
+Route::get('/users/{id}/telefono', function($id) {
+    $user_telefono = User::find($id)->telefono;
+
+    return $user_telefono;
+});
+
+Route::get('/telefonos/{id}/usuario', function($id) {
+    $user_telefono = Telefono::find($id)->user;
+
+    return $user_telefono;
+});
+
+/* Uno a muchos */
+Route::get('/categorias/{id}/items', function($id) {
+    $categoria_items = Categoria::find($id)->items;
+
+    return $categoria_items;
+});
+
+Route::get('/items/{id}/categoria', function($id) {
+    $item_categoria = Item::find($id)->categoria;
+
+    return $item_categoria;
+});
+
+Route::get('/categorias/{id}/comentarios', function($id) {
+    $categoria_comentarios = Categoria::find($id)->comentarios;
+
+    return $categoria_comentarios;
+});
+
+/* Muchos a muchos */
+Route::get('/items/{id}/generos', function($id) {
+    $item_generos = Item::find($id)->generos;
+
+    return $item_generos;
+});
+
+Route::get('/generos/{id}/items', function($id) {
+    $genero_items = Genero::find($id)->items;
+
+    return $genero_items;
+});
