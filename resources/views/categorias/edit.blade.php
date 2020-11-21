@@ -1,12 +1,12 @@
-@extends('../layouts.app')
+@extends('../layouts.admin')
 
 @section('title')
     Categorias
 @endsection
 
 @section('content')
-
-    <h3>Editar categoría</h3>
+<div class="p-3">
+    <h1 class="text-center">Editar categoría</h1>
 
     @if($error != "")
     <div class="alert alert-danger" role="alert">
@@ -31,5 +31,5 @@
             <button class="btn btn-success" type="submit">Actualizar</button>
         </div>
     </form>
-
+</div>
 @endsection

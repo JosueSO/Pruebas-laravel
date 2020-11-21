@@ -18,8 +18,8 @@ class CategoriasController extends Controller
         //
         //$categorias = DB::select('SELECT * FROM categorias');
         
-        //$categorias = Categoria::all();
-        $categorias = Categoria::onlyTrashed()->get();
+        $categorias = Categoria::all();
+        //$categorias = Categoria::onlyTrashed()->get();
 
         return view('categorias.index', compact('categorias'));
     }

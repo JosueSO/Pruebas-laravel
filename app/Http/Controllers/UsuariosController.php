@@ -92,4 +92,15 @@ class UsuariosController extends Controller
         //
         return view('users.perfil');
     }
+
+    /**
+     * Página del administrador
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function admin()
+    {
+        //
+        return view('users.admin');
+    }
 }

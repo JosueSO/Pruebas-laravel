@@ -76,7 +76,8 @@
                     </a>
                 </div>
                 <div class="col-6 text-right">
-                    Contáctanos
+                    <a class="btn btn-danger" href="">Contáctanos</a>
+                    <a class="btn btn-danger" href="/administrador">Panel Administrativo</a>
                 </div>
             </div>
         </div>
