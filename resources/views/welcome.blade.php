@@ -1,47 +1,39 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('./layouts.app')
 
-        <title>Laravel</title>
-        <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    </head>
-    <body>
-        Laravel
+@section('title')
+  Inicio
+@endsection
 
-        <p class="prueba-fondo-verde">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus nulla a quasi consequuntur minima, voluptate ipsum iure, itaque, iusto quis quae assumenda alias rem quidem consectetur. Atque eum illo eius.
-        </p>
+@section('content')
+  <div class="display-1 text-center">
+    Carrusel
+  </div>
 
-
-
-        <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  <div id="categorias">
+    @for($i = 0; $i < 3; $i++)
+    <div class="categoria">
+      <div class="h3">
+        Categoría {{$i}}
       </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      <div class="categoria-items row flex-nowrap">
+        @for($j = 0; $j < 10; $j++)
+        <div class="categoria-item col-4 col-md-2">
+          <a class="card" href="/app/items/{{$j}}">
+            <img src="https://picsum.photos/150/250" alt="">
+            <div class="card-body">
+              <div class="card-title">
+                Nombre item
+              </div>
+              <div class="card-text">
+                <i class="fas fa-thumbs-up"></i>
+                89%
+              </div>
+            </div>
+          </a>
+        </div>
+        @endfor
       </div>
     </div>
+    @endfor
   </div>
-</div>
-
-        <script src="{{asset('js/app.js')}}"></script>
-    </body>
-</html>
+@endsection

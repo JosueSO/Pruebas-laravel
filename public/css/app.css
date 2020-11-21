@@ -10907,3 +10907,48 @@ a.text-dark:focus {
   background-color: #00ff00;
 }
 
+#logo {
+  max-width: 50px;
+}
+
+@media (min-width: 768px) {
+  #logo {
+    max-width: 90px;
+  }
+}
+
+#page-content {
+  margin-bottom: 8em;
+}
+
+#redes {
+  font-size: 2em;
+}
+
+.categoria {
+  border: solid darkred;
+  border-width: 0 0 0 0.5em;
+  padding: 0 1.5em;
+  margin: 1.5em 0;
+}
+
+.categoria-items {
+  overflow-x: auto;
+}
+
+.categoria-item {
+  padding: 0 0.25em;
+}
+
+.vote-button {
+  font-size: 3em;
+}
+
+#search_button {
+  font-size: 2em;
+}
+
+.footer_phone {
+  font-size: 2em;
+}
+

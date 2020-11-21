@@ -24,6 +24,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/app/items/{id}', 'AplicacionController@item')->name('app.item');
+
 // Route::get('/tarea', function() {
 //     //return 'Esta es la página de tareas';
 
@@ -38,7 +40,11 @@ Route::get('/', function () {
 //     return 'Página de prueba';
 // })->name('catX');
 
-Route::get('/prueba', 'PruebaController@index');
+//Route::get('/prueba', 'PruebaController@index');
+
+Route::resource('users', 'UsuariosController');
+
+Route::get('/perfil', 'UsuariosController@miPerfil')->name('users.pefil');
 
 Route::resource('categorias', 'CategoriasController');
 
@@ -95,7 +101,8 @@ Route::get('/delete/{id}', function($id){
 
 */
 
-/* Uno a uno */
+/*
+// Uno a uno
 Route::get('/users/{id}/telefono', function($id) {
     $user_telefono = User::find($id)->telefono;
 
@@ -108,7 +115,7 @@ Route::get('/telefonos/{id}/usuario', function($id) {
     return $user_telefono;
 });
 
-/* Uno a muchos */
+// Uno a muchos
 Route::get('/categorias/{id}/items', function($id) {
     $categoria_items = Categoria::find($id)->items;
 
@@ -127,7 +134,7 @@ Route::get('/categorias/{id}/comentarios', function($id) {
     return $categoria_comentarios;
 });
 
-/* Muchos a muchos */
+// Muchos a muchos
 Route::get('/items/{id}/generos', function($id) {
     $item_generos = Item::find($id)->generos;
 
@@ -139,3 +146,5 @@ Route::get('/generos/{id}/items', function($id) {
 
     return $genero_items;
 });
+
+*/
