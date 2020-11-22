@@ -79,6 +79,8 @@
                 </div>
             </div>
         </div>
+
+        @yield('modales')
     </div>
 
     <script src="{{asset('js/app.js')}}"></script>
