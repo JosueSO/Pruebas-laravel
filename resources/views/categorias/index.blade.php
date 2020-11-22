@@ -25,16 +25,16 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($categorias as $item)
+            @foreach($categorias as $categoria)
             <tr>
-                <td scope="row">{{$item->id}}</td>
-                <td>{{$item->nombre}}</td>
-                <td>{{$item->color}}</td>
+                <td scope="row">{{$categoria->id}}</td>
+                <td>{{$categoria->nombre}}</td>
+                <td>{{$categoria->color}}</td>
                 <td>
-                    <a class="btn btn-warning" href="/categorias/{{$item->id}}/edit">
+                    <a class="btn btn-warning" href="/categorias/{{$categoria->id}}/edit">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <button class="btn btn-danger" type="submit" onclick="modalEliminacion({{$item->id}})">
+                    <button class="btn btn-danger" type="submit" onclick="modalEliminacion({{$categoria->id}})">
                         &times;
                     </button>
                 </td>

@@ -45,18 +45,18 @@ class CategoriasController extends Controller
     public function store(Request $request)
     {
         //
-        $item = new Categoria;
+        $categoria = new Categoria;
 
-        $item->nombre = $request->nombre;
-        if($item->nombre == "") {
+        $categoria->nombre = $request->nombre;
+        if($categoria->nombre == "") {
             $error = "El nombre de la categoría no puede estar vacío";
 
             return view('categorias.create', compact('error'));
         }
 
-        $item->color = $request->color;
+        $categoria->color = $request->color;
 
-        $item->save();
+        $categoria->save();
         //DB::insert('INSERT INTO categorias(nombre, color) VALUES(?, ?)', [$nombre, $color]);
 
         return redirect()->route('categorias.index');
@@ -79,13 +79,13 @@ class CategoriasController extends Controller
 
         // $categorias = DB::select('SELECT * FROM categorias WHERE id = ?', [$id]);
 
-        // $item = $categorias[0];
+        // $categoria = $categorias[0];
 
         //Categoria::withTrashed()->where('id', $id)->forceDelete();
 
-        $item = Categoria::find($id);
+        $categoria = Categoria::find($id);
 
-        return $item;
+        return $categoria;
     }
 
     /**
@@ -99,11 +99,11 @@ class CategoriasController extends Controller
         //
         // $categorias = DB::select('SELECT * FROM categorias WHERE id = ?', [$id]);
 
-        // $item = $categorias[0];
-        $item = Categoria::find($id);
+        // $categoria = $categorias[0];
+        $categoria = Categoria::find($id);
 
         $error = "";
-        return view('categorias.edit', compact('error', 'item'));
+        return view('categorias.edit', compact('error', 'categoria'));
     }
 
     /**
@@ -118,26 +118,26 @@ class CategoriasController extends Controller
         //
         // $categorias = DB::select('SELECT * FROM categorias WHERE id = ?', [$id]);
 
-        // $item = $categorias[0];
-        $item = Categoria::find($id);
+        // $categoria = $categorias[0];
+        $categoria = Categoria::find($id);
 
-        $item->nombre = $request->nombre;
-        if($item->nombre == "") {
+        $categoria->nombre = $request->nombre;
+        if($categoria->nombre == "") {
             $error = "El nombre de la categoría no puede estar vacío";
 
-            return view('categorias.edit', compact('error', 'item'));
+            return view('categorias.edit', compact('error', 'categoria'));
         }
 
-        $item->color = $request->color;
+        $categoria->color = $request->color;
 
-        $respuesta = $item->save();
+        $respuesta = $categoria->save();
         // $respuesta = DB::update('UPDATE categorias SET nombre = ?, color = ? WHERE id = ?', 
         //     [$nombre, $color, $id]);
 
         if($respuesta == 0) {
             $error = "Error al actualizar el registro, inténtelo de nuevo";
 
-            return view('categorias.edit', compact('error', 'item'));
+            return view('categorias.edit', compact('error', 'categoria'));
         }
 
         return redirect()->route('categorias.index');

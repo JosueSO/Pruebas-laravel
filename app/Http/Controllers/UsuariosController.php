@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Telefono;
 
 class UsuariosController extends Controller
 {
@@ -14,6 +16,9 @@ class UsuariosController extends Controller
     public function index()
     {
         //
+        $users = User::all();
+
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -24,6 +29,8 @@ class UsuariosController extends Controller
     public function create()
     {
         //
+        $error = "";
+        return view('users.create', compact('error'));
     }
 
     /**
@@ -35,6 +42,46 @@ class UsuariosController extends Controller
     public function store(Request $request)
     {
         //
+        $user = new User;
+
+        if($request->name == "") {
+            $error = "El nombre del usuario no puede estar vacío";
+
+            return view('users.create', compact('error'));
+        }
+
+        if($request->email == "") {
+            $error = "El nombre del usuario no puede estar vacío";
+
+            return view('users.create', compact('error'));
+        }
+
+        if($request->email != $request->confirm_email) {
+            $error = "El correo de confirmación no coincide";
+
+            return view('users.create', compact('error'));
+        }
+
+        if($request->password != $request->confirm_password) {
+            $error = "Las contraseñas no coinciden";
+
+            return view('users.create', compact('error'));
+        }
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+
+        $user->save();
+
+        if ($request->telefono != "") {
+            $telefono = new Telefono;
+            $telefono->numero = $request->telefono;
+
+            $user->telefono()->save($telefono);
+        }
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -80,6 +127,9 @@ class UsuariosController extends Controller
     public function destroy($id)
     {
         //
+        User::destroy($id);
+
+        return redirect()->route('users.index');
     }
 
     /**

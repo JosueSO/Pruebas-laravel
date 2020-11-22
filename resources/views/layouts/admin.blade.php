@@ -41,7 +41,7 @@
             @endif
         </div>
         
-        <div id="page-content">
+        <div id="page-content" class="container py-3">
             @yield('content')
         </div>
 
