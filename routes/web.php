@@ -56,6 +56,8 @@ Route::get('/categorias/incluirEliminados', 'CategoriasController@incluirElimina
 
 Route::resource('generos', 'GenerosController');
 
+Route::resource('items', 'ItemsController');
+
 /*
 
 //Insertar datos

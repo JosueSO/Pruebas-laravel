@@ -6,7 +6,7 @@ Item
 
 @section('content')
 <div class="row">
-    <div class="col-3 py-2">
+    <div class="d-none d-md-flex col-md-3 py-2">
         <h4>Mejores de la categoría</h4>
         <ul class="list-group">
             @for($i = 0; $i < 10; $i++)
@@ -17,13 +17,13 @@ Item
             @endfor
         </ul>
     </div>
-    <div class="col-9 py-2">
-        <img src="https://picsum.photos/900/400" alt="" class="img-fluid">
+    <div class="col-12 col-md-9 py-2">
+        <img src="https://picsum.photos/1800/800" alt="" class="img-fluid">
         <div class="row mt-3 mx-0">
-            <div class="col-3">
+            <div class="d-none d-md-flex col-md-3">
                 <img src="https://picsum.photos/400/670" alt="" class="img-fluid">
             </div>
-            <div class="col-9 bg-light">
+            <div class="col-12 col-md-9 bg-light">
                 <h1 class="text-center">Nombre del item</h1>
                 <h3 class="text-center">Crítica</h3>
                 <p class="text-justify">
@@ -106,10 +106,10 @@ Item
                     <h4>Calificar</h4>
                 </div>
                 <div class="card-body form-row">
-                    <div class="col-8">
+                    <div class="d-none d-md-flex col-8">
                         <textarea name="" id="" rows="6" class="form-control" placeholder="Escribe algo..."></textarea>
                     </div>
-                    <div class="col-4 text-center">
+                    <div class="col-12 col-md-4 text-center">
                         <div>
                             <button class="btn btn-outline-light text-dark vote-button">
                                 <i class="fas fa-thumbs-up"></i>

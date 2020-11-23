@@ -91,6 +91,9 @@
                     <div>
                         <a href="" class="text-white">Registrarse</a>
                     </div>
+                    <div>
+                        <a href="/administrador" class="text-white">administrador</a>
+                    </div>
                 </div>
             </div>
             <div class="bg-danger row text-white d-md-none text-center">
