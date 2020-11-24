@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Item;
+use App\Categoria;
 
 class ItemsController extends Controller
 {
@@ -28,8 +29,10 @@ class ItemsController extends Controller
     public function create()
     {
         //
+        $categorias = Categoria::all();
         $error = "";
-        return view('items.create', compact('error'));
+
+        return view('items.create', compact('categorias', 'error'));
     }
 
     /**
@@ -41,6 +44,23 @@ class ItemsController extends Controller
     public function store(Request $request)
     {
         //
+        $item = new Item;
+
+        $item->nombre = $request->nombre;
+        $item->descripcion = $request->descripcion;
+        $item->categoria_id = $request->categoria;
+
+        if($imagen = $request->file('imagen')) {
+            $nombre_imagen = $item->nombre . "_" . date("Y_m_d_H_i_s") . "." . $imagen->extension();
+            
+            $imagen->move("img", $nombre_imagen);
+
+            $item->path = "img/" . $nombre_imagen; 
+        }
+
+        $item->save();
+
+        return redirect()->route('items.index');
     }
 
     /**
@@ -52,6 +72,9 @@ class ItemsController extends Controller
     public function show($id)
     {
         //
+        $item = Item::find($id);
+
+        return view("items.show", compact("item"));
     }
 
     /**
