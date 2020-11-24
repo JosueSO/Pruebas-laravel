@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Item;
 use App\Categoria;
+use App\Genero;
 
 class ItemsController extends Controller
 {
@@ -30,9 +31,10 @@ class ItemsController extends Controller
     {
         //
         $categorias = Categoria::all();
+        $generos = Genero::all();
         $error = "";
 
-        return view('items.create', compact('categorias', 'error'));
+        return view('items.create', compact('categorias', 'generos', 'error'));
     }
 
     /**
@@ -59,6 +61,8 @@ class ItemsController extends Controller
         }
 
         $item->save();
+
+        $item->generos()->sync($request->generos);
 
         return redirect()->route('items.index');
     }
