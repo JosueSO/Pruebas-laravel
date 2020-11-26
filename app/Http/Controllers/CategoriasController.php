@@ -51,7 +51,9 @@ class CategoriasController extends Controller
         if($categoria->nombre == "") {
             $error = "El nombre de la categoría no puede estar vacío";
 
-            return view('categorias.create', compact('error'));
+            //return view('categorias.create', compact('error'));
+
+            abort(409, $error);
         }
 
         $categoria->color = $request->color;
@@ -125,7 +127,8 @@ class CategoriasController extends Controller
         if($categoria->nombre == "") {
             $error = "El nombre de la categoría no puede estar vacío";
 
-            return view('categorias.edit', compact('error', 'categoria'));
+            //return view('categorias.edit', compact('error', 'categoria'));
+            abort(409, $error);
         }
 
         $categoria->color = $request->color;
@@ -137,7 +140,8 @@ class CategoriasController extends Controller
         if($respuesta == 0) {
             $error = "Error al actualizar el registro, inténtelo de nuevo";
 
-            return view('categorias.edit', compact('error', 'categoria'));
+            //return view('categorias.edit', compact('error', 'categoria'));
+            abort(409, $error);
         }
 
         return redirect()->route('categorias.index');
