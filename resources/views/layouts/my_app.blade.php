@@ -64,7 +64,9 @@
                     <ul class="list-group list-group-horizontal text-center">
                         <li class="list-group-item list-group-item-action">Menu 1</li>
                         <li class="list-group-item list-group-item-action">Menu 2</li>
-                        <li class="list-group-item list-group-item-action">Menu 3</li>
+                        <li class="list-group-item list-group-item-action">
+                            {{ count(session("carrito")) }}
+                        </li>
                     </ul>
                 </div>
             </div>

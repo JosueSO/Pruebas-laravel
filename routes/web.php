@@ -8,6 +8,7 @@ use App\Telefono;
 use App\Item;
 use App\Comentario;
 use App\Genero;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -157,3 +158,66 @@ Route::get('/generos/{id}/items', function($id) {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+/**
+ * Pruebas sessiones
+ */
+
+Route::get('/sesiones', function(Request $request) {
+    $request->session()->put('carrito', []);
+
+    return session()->all();
+});
+
+Route::get('/agregacarrito/{id}', function(Request $request, $id){
+    $objeto = ["id" => $id, "cant" => 1];
+
+    $carrito = session('carrito');
+
+    $nuevo_carrito = [];
+
+    $en_carrito = false;
+    foreach ($carrito as $item) {
+        if ($item["id"] === $id) {
+            $item["cant"] += $objeto["cant"];
+            $en_carrito = true;
+        }
+
+        $nuevo_carrito[] = $item;
+    }
+
+    if (!$en_carrito) {
+        $nuevo_carrito[] = $objeto;
+    }
+
+    // return $nuevo_carrito;
+    session(['carrito' => $nuevo_carrito]);
+
+    return session()->all();
+});
+
+Route::get('/quitacarrito/{id}', function(Request $request, $id){
+    $carrito = session('carrito');
+
+    $nuevo_carrito = [];
+
+    foreach ($carrito as $item) {
+        if ($item["id"] === $id) {
+            $item["cant"] -= 1;
+        }
+
+        if ($item["cant"] !== 0) {
+            $nuevo_carrito[] = $item;
+        }
+    }
+
+    // return $nuevo_carrito;
+    session(['carrito' => $nuevo_carrito]);
+
+    return session()->all();
+});
+
+Route::get('/carrito', function(Request $request) {
+    return session("carrito");
+});
