@@ -154,3 +154,6 @@ Route::get('/generos/{id}/items', function($id) {
 });
 
 */
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
