@@ -31,16 +31,33 @@
                         </div>
                     </form>
                     <div class="ml-3 text-right d-inline-block">
-                        <!-- <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalLogin">
+                        @guest
+                        <a class="btn btn-danger" type="button" href="/login">
                             Inicio de sesión
-                        </button>
-                        |
-                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalRegistro">
-                            Registrarse
-                        </button> -->
-                        <a class="btn btn-danger" href="/perfil">
-                            <i class="far fa-user"></i>
                         </a>
+                        |
+                        <a class="btn btn-danger" type="button" href="/register">
+                            Registrarse
+                        </a>
+                        @else
+                        <button class="btn btn-danger" data-toggle="collapse" data-target="#menu_user">
+                            <i class="far fa-user"></i>
+                            {{ Auth::user()->name }}
+                        </button>
+                        <div class="collapse" id="menu_user">
+                            <a href="/perfil" class="btn btn-danger">
+                                Mi perfil
+                            </a>
+                            <a class="btn btn-danger" href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                        @endguest
                     </div>
                 </div>
                 <div class="mt-2">
