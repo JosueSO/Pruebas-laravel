@@ -46,7 +46,7 @@ Route::resource('users', 'UsuariosController');
 
 Route::get('/perfil', 'UsuariosController@miPerfil')->name('users.pefil');
 
-Route::get('/administrador', 'UsuariosController@admin')->name('users.admin');
+Route::get('/administrador', 'UsuariosController@admin')->name('users.admin')->middleware('auth');
 
 Route::resource('categorias', 'CategoriasController');
 
