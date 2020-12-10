@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 use App\User;
 use App\Categoria;
 use App\Telefono;
@@ -157,3 +157,37 @@ Route::get('/generos/{id}/items', function($id) {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/carrito/iniciar', function(Request $request){
+    //session(['carrito' => $id]);
+
+    $request->session()->put('carrito', []);
+
+    return session()->all();
+});
+
+Route::get('/carrito/agregar/{id}/{cant}', function(Request $request, $id, $cant){
+    $objeto = ["id" => $id, "cant" => $cant];
+
+    $carrito = session('carrito');
+    $nuevo_carrito = [];
+
+    $agregar = true;
+    foreach($carrito as $item) {
+        if($item["id"] === $objeto["id"]) {
+            $item["cant"] += $objeto["cant"];
+
+            $agregar = false;
+        }
+
+        $nuevo_carrito[] = $item;
+    }
+
+    if ($agregar) {
+        $nuevo_carrito[] = $objeto;
+    }
+
+    $request->session()->put('carrito', $nuevo_carrito);
+
+    return session()->all();
+});

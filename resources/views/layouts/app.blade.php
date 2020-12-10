@@ -94,7 +94,12 @@
                 </div>
                 <div class="col-6 text-right">
                     <a class="btn btn-danger" href="">Contáctanos</a>
-                    <a class="btn btn-danger" href="/administrador">Panel Administrativo</a>
+                    @guest
+                    @else
+                        @if(Auth::user()->rol == "admin")
+                        <a class="btn btn-danger" href="/administrador">Panel Administrativo</a>
+                        @endif
+                    @endguest
                 </div>
             </div>
         </div>
